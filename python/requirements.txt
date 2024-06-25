@@ -1,0 +1,6 @@
+datamap.posmo-datamarket-sdk
+geopandas
+geoviews
+h3
+jupyterlab
+movingpandas

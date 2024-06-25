@@ -1,6 +1,10 @@
-### Datamarket Docs
+# Posmo DataMarket documentation
 
+This repository contains documentation for Posmo DataMarket.
 
-## DB Schema
+You can find SDK usage examples in platform specific directories:
+- [Python](python)
 
-<img width="638" alt="trackingDb" src="https://github.com/datamapio/datamarket-docs/assets/6351012/3b6e24bd-9c73-4797-93c1-3081ecfc5741">
+## Database schema
+
+![Database schema](schema.svg)
