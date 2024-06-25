@@ -1,0 +1,94 @@
+// https://dbdiagram.io/d
+
+Table tracking {
+  id uuid [primary key]
+  user_id uuid
+  date date
+  day_of_week int2
+  day int2
+  month int2
+  year int2
+  is_validated boolean
+  created_at timestamptz
+  updated_at timestamptz
+}
+
+Table events {
+  id uuid [primary key]
+  tracking_id uuid
+  moving_id uuid
+  static_point_id uuid
+  feature_collection_id uuid
+  start_at int8
+  end_at int8
+  duration int8
+  utc_diff float4
+  type varchar
+}
+Ref: events.tracking_id > tracking.id
+
+Table features {
+  id uuid [primary key]
+  feature_collection_id uuid
+  the_geom geometry
+  utc_diff float4
+  timestamp int8
+  lon float8
+  lat float8
+  h3_13 varchar
+  h3_12 varchar
+  h3_11 varchar
+  h3_10 varchar
+  h3_9 varchar
+  h3_8 varchar
+}
+Ref: features.feature_collection_id > events.feature_collection_id
+
+Table properties {
+  id uuid [primary key]
+  feature_id uuid
+  key varchar
+  value varchar
+  type varchar
+}
+Ref: properties.feature_id > features.id
+
+Table static_point {
+  id uuid [primary key]
+  lon float8
+  lat float8
+  the_geom geometry
+  idle_id int2
+}
+Ref: static_point.id > events.static_point_id
+
+Table moving {
+  id uuid [primary key]
+  transport_mode_id int2
+  speed float8
+  median_speed float8
+  distance float8
+  the_geom geometry
+  route varchar
+}
+Ref: moving.id > events.moving_id
+
+Table moving_stops {
+  id uuid [primary key]
+  moving_id uuid
+  stop_id varchar
+  arrival int8
+  departure int8
+}
+Ref: moving_stops.moving_id > moving.id
+
+Table moving_vehicle {
+  id uuid [primary key]
+  moving_id uuid
+  estimated_consumption float8
+  transport_mode_id int2
+  type varchar
+  brand varchar
+  model varchar
+}
+Ref: moving_vehicle.moving_id > moving.id
